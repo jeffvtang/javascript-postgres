@@ -29,10 +29,17 @@ function returnString(err, output) {
 
 console.log('Searching ...')
 knex.select().from('famous_people').where('first_name', 'like', someName).orWhere('last_name', 'like', someName)
-  .asCallback(function (err, rows) {
-    if (err) returnString(err);
+  .then(function (rows) {
     returnString(null, rows)
+  })
+  .catch(function (err) {
+    returnString(err)
   });
+// knex.select().from('famous_people').where('first_name', 'like', someName).orWhere('last_name', 'like', someName)
+//   .asCallback(function (err, rows) {
+//     if (err) returnString(err);
+//     returnString(null, rows)
+//   });
 
 //   knex.connect((err) => {
 //     if (err) {
