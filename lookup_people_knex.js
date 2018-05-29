@@ -20,7 +20,7 @@ function returnString(err, output) {
     return console.error("Connection Error", err);
   }
   console.log("Found", output.length, "person(s) by the name '" + someName + "':")
-
+  
   output.forEach(function (arrayitem, i) {
     console.log("- " + (i + 1) + ":", arrayitem.first_name, arrayitem.last_name + ", born '" + arrayitem.birthdate.toLocaleDateString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' }) + "'")
   })
@@ -31,7 +31,10 @@ function returnString(err, output) {
 }
 
 console.log('Searching ...')
-knex.select().from('famous_people').where('first_name', 'like', someName).orWhere('last_name', 'like', someName)
+knex.select()
+  .from('famous_people')
+  .where('first_name', 'like', someName)
+  .orWhere('last_name', 'like', someName)
   .then(function (rows) {
     returnString(null, rows)
   })
