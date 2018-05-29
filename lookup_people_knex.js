@@ -22,7 +22,7 @@ function returnString(err, output) {
   console.log("Found", output.length, "person(s) by the name '" + someName + "':")
 
   for (let i = 0; i < output.length; i++) {
-    console.log("- " + (i + 1) + ":", output[i].first_name, output[i].last_name + ", born '" + output[i].birthdate.toLocaleDateString() + "'")
+    console.log("- " + (i + 1) + ":", output[i].first_name, output[i].last_name + ", born '" + output[i].birthdate.toLocaleDateString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' }) + "'")
   }
   knex.destroy()
 }
@@ -35,6 +35,7 @@ knex.select().from('famous_people').where('first_name', 'like', someName).orWher
   .catch(function (err) {
     returnString(err)
   });
+
 // knex.select().from('famous_people').where('first_name', 'like', someName).orWhere('last_name', 'like', someName)
 //   .asCallback(function (err, rows) {
 //     if (err) returnString(err);
